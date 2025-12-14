@@ -12,7 +12,7 @@ st.set_page_config(
 )
 
 # Başlık ve Açıklama
-st.title("🍷 Kırmızı Şarap Kalitesi Tahminleme v1.2")
+st.title("🍷 Kırmızı Şarap Kalitesi Tahminleme v1.3 (Canlı)")
 st.write("""
 Bu uygulama, şarabın kimyasal özelliklerine dayanarak kalitesini tahmin eder.
 Lütfen aşağıdaki değerleri girin ve **Tahmin Et** butonuna basın.
@@ -34,29 +34,25 @@ model = load_model()
 
 if model:
     # Kullanıcı Girdi Formu
-    with st.form("prediction_form"):
-        col1, col2 = st.columns(2)
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        fixed_acidity = st.slider("Fixed Acidity", 4.0, 16.0, 8.0, 0.1)
+        volatile_acidity = st.slider("Volatile Acidity", 0.1, 2.0, 0.5, 0.01)
+        citric_acid = st.slider("Citric Acid", 0.0, 1.0, 0.25, 0.01)
+        residual_sugar = st.slider("Residual Sugar", 0.0, 16.0, 2.5, 0.1)
+        chlorides = st.slider("Chlorides", 0.0, 0.7, 0.08, 0.001)
         
-        with col1:
-            fixed_acidity = st.slider("Fixed Acidity", 4.0, 16.0, 8.0, 0.1)
-            volatile_acidity = st.slider("Volatile Acidity", 0.1, 2.0, 0.5, 0.01)
-            citric_acid = st.slider("Citric Acid", 0.0, 1.0, 0.25, 0.01)
-            residual_sugar = st.slider("Residual Sugar", 0.0, 16.0, 2.5, 0.1)
-            chlorides = st.slider("Chlorides", 0.0, 0.7, 0.08, 0.001)
-            
-        with col2:
-            free_sulfur_dioxide = st.slider("Free Sulfur Dioxide", 1.0, 72.0, 15.0, 1.0)
-            total_sulfur_dioxide = st.slider("Total Sulfur Dioxide", 6.0, 289.0, 46.0, 1.0)
-            density = st.slider("Density", 0.99, 1.01, 0.996, 0.0001)
-            pH = st.slider("pH", 2.0, 5.0, 3.3, 0.01)
-            sulphates = st.slider("Sulphates", 0.0, 2.0, 0.65, 0.01)
-            alcohol = st.slider("Alcohol", 8.0, 15.0, 10.0, 0.1)
+    with col2:
+        free_sulfur_dioxide = st.slider("Free Sulfur Dioxide", 1.0, 72.0, 15.0, 1.0)
+        total_sulfur_dioxide = st.slider("Total Sulfur Dioxide", 6.0, 289.0, 46.0, 1.0)
+        density = st.slider("Density", 0.99, 1.01, 0.996, 0.0001)
+        pH = st.slider("pH", 2.0, 5.0, 3.3, 0.01)
+        sulphates = st.slider("Sulphates", 0.0, 2.0, 0.65, 0.01)
+        alcohol = st.slider("Alcohol", 8.0, 15.0, 10.0, 0.1)
 
-        submitted = st.form_submit_button("Tahmin Et")
-
-    if submitted:
-        # Girdileri DataFrame'e çevir
-        input_data = pd.DataFrame([[
+    # Otomatik Tahmin (Butona gerek yok)
+    input_data = pd.DataFrame([[
             fixed_acidity, volatile_acidity, citric_acid, residual_sugar,
             chlorides, free_sulfur_dioxide, total_sulfur_dioxide, density,
             pH, sulphates, alcohol

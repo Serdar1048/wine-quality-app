@@ -18,6 +18,20 @@ Bu uygulama, şarabın kimyasal özelliklerine dayanarak kalitesini tahmin eder.
 Lütfen aşağıdaki değerleri girin ve **Tahmin Et** butonuna basın.
 """)
 
+# İpucu Köşesi
+with st.sidebar:
+    st.header("💡 İpuçları")
+    st.info("""
+    **İyi Şarap (Good) İçin Genellikle:**
+    - **Alcohol:** Yüksek olmalı (> 11.5)
+    - **Volatile Acidity:** Düşük olmalı (< 0.5)
+    - **Sulphates:** Yüksek olmalı (> 0.7)
+    - **Citric Acid:** Orta/Yüksek (> 0.3)
+    """)
+    st.warning("""
+    **Not:** Model, gerçek veri setindeki >6 puan alan şarapları "İyi" olarak sınıflandırır. Bu standartlara ulaşmak zordur.
+    """)
+
 # Model Yükleme (Hata Yönetimi ve Absolute Path ile)
 @st.cache_resource
 def load_model():

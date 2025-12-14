@@ -62,20 +62,20 @@ if model:
             'pH', 'sulphates', 'alcohol'
         ])
 
-        # Tahmin Yap
-        prediction = model.predict(input_data)
-        probability = model.predict_proba(input_data)
+    # Tahmin Yap
+    prediction = model.predict(input_data)
+    probability = model.predict_proba(input_data)
 
-        # Sonucu Göster
-        st.markdown("---")
-        st.subheader("Tahmin Sonucu")
-        
-        quality = "İyi Kalite (Good)" if prediction[0] == 1 else "Ortalama/Düşük Kalite (Bad)"
-        color = "green" if prediction[0] == 1 else "red"
-        
-        st.markdown(f"### Tahmin: <span style='color:{color}'>{quality}</span>", unsafe_allow_html=True)
-        
-        # Olasılık Grafiği
-        st.write("Olasılık Dağılımı:")
-        prob_df = pd.DataFrame(probability, columns=['Kötü', 'İyi'])
-        st.bar_chart(prob_df.T)
+    # Sonucu Göster
+    st.markdown("---")
+    st.subheader("Tahmin Sonucu")
+    
+    quality = "İyi Kalite (Good)" if prediction[0] == 1 else "Ortalama/Düşük Kalite (Bad)"
+    color = "green" if prediction[0] == 1 else "red"
+    
+    st.markdown(f"### Tahmin: <span style='color:{color}'>{quality}</span>", unsafe_allow_html=True)
+    
+    # Olasılık Grafiği
+    st.write("Olasılık Dağılımı:")
+    prob_df = pd.DataFrame(probability, columns=['Kötü', 'İyi'])
+    st.bar_chart(prob_df.T)
